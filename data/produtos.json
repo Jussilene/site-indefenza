@@ -1,0 +1,79 @@
+[
+  {
+    "nome": "Camiseta \"O Parasita da Galáxia\"",
+    "descricao": "Estampa oficial do álbum, 100% algodão.",
+    "preco": "89,90",
+    "detalhePreco": "P ao GG",
+    "categoria": "camisetas",
+    "tag": "Novidade",
+    "icone": "fa-shirt",
+    "imagem": "",
+    "whatsappTexto": "Quero comprar a Camiseta O Parasita da Galáxia"
+  },
+  {
+    "nome": "Camiseta Logo Clássica",
+    "descricao": "Logo do [IN]DEFENZA estampada, corte unissex.",
+    "preco": "79,90",
+    "detalhePreco": "P ao GG",
+    "categoria": "camisetas",
+    "tag": "",
+    "icone": "fa-shirt",
+    "imagem": "",
+    "whatsappTexto": "Quero comprar a Camiseta Logo Clássica"
+  },
+  {
+    "nome": "CD \"O Parasita da Galáxia\"",
+    "descricao": "Álbum completo em formato físico, com encarte.",
+    "preco": "49,90",
+    "detalhePreco": "",
+    "categoria": "musica",
+    "tag": "",
+    "icone": "fa-compact-disc",
+    "imagem": "",
+    "whatsappTexto": "Quero comprar o CD O Parasita da Galáxia"
+  },
+  {
+    "nome": "Vinil \"O Parasita da Galáxia\"",
+    "descricao": "Edição limitada em vinil colorido, numerada.",
+    "preco": "149,90",
+    "detalhePreco": "",
+    "categoria": "musica",
+    "tag": "Edição Limitada",
+    "icone": "fa-record-vinyl",
+    "imagem": "",
+    "whatsappTexto": "Quero comprar o Vinil O Parasita da Galáxia"
+  },
+  {
+    "nome": "Boné [IN]DEFENZA",
+    "descricao": "Boné preto bordado com o logo da banda.",
+    "preco": "69,90",
+    "detalhePreco": "",
+    "categoria": "acessorios",
+    "tag": "",
+    "icone": "fa-hat-cowboy",
+    "imagem": "",
+    "whatsappTexto": "Quero comprar o Boné INDEFENZA"
+  },
+  {
+    "nome": "Pin Metálico",
+    "descricao": "Pin esmaltado com o selo do [IN]DEFENZA.",
+    "preco": "19,90",
+    "detalhePreco": "",
+    "categoria": "acessorios",
+    "tag": "",
+    "icone": "fa-thumbtack",
+    "imagem": "",
+    "whatsappTexto": "Quero comprar o Pin Metálico"
+  },
+  {
+    "nome": "Pôster A3",
+    "descricao": "Arte oficial do álbum em papel fotográfico A3.",
+    "preco": "29,90",
+    "detalhePreco": "",
+    "categoria": "acessorios",
+    "tag": "",
+    "icone": "fa-image",
+    "imagem": "",
+    "whatsappTexto": "Quero comprar o Pôster A3"
+  }
+]

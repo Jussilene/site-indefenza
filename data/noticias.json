@@ -1,0 +1,29 @@
+[
+  {
+    "titulo": "Show de lançamento de \"O Parasita da Galáxia\" lota o Janaíno Vegan",
+    "data": "Junho de 2026",
+    "resumo": "O [IN]DEFENZA subiu ao palco do Janaíno Vegan, em Curitiba, para apresentar ao vivo o novo álbum, com participação de Espectrovulho e Look Into The Abyss.",
+    "imagem": "",
+    "icone": "fa-newspaper",
+    "link": "galeria.html",
+    "linkTexto": "Ver fotos do show"
+  },
+  {
+    "titulo": "Álbum \"O Parasita da Galáxia\" já está disponível",
+    "data": "2026",
+    "resumo": "Chegou o novo trabalho de estúdio do [IN]DEFENZA. Ouça agora nas principais plataformas de streaming.",
+    "imagem": "",
+    "icone": "fa-compact-disc",
+    "link": "index.html#ouca-agora",
+    "linkTexto": "Ouvir agora"
+  },
+  {
+    "titulo": "Clipe de \"Catastrófico\" no ar",
+    "data": "2026",
+    "resumo": "O novo videoclipe da banda já está disponível no YouTube. Confira a estética pesada que traduz a faixa em imagens.",
+    "imagem": "",
+    "icone": "fa-clapperboard",
+    "link": "videos.html",
+    "linkTexto": "Assistir clipe"
+  }
+]

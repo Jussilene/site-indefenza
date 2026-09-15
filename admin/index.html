@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin — [IN]DEFENZA</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<!-- ===================== TELA DE LOGIN ===================== -->
+<div class="tela-login" id="tela-login">
+  <div class="login-card">
+    <div class="logo">
+      <img src="../assets/img/logo-icone.svg" alt="Logo [IN]DEFENZA">
+      <span>[IN]<b>DEFENZA</b></span>
+    </div>
+    <h1>Painel Admin</h1>
+    <p class="sub">Entre com um token de acesso do GitHub para editar textos, shows, galeria, vídeos, notícias e a loja do site.</p>
+
+    <div id="area-alerta-login"></div>
+
+    <form id="form-login">
+      <div class="campo">
+        <label for="campo-token">Token de acesso (GitHub)</label>
+        <input type="password" id="campo-token" autocomplete="off" placeholder="github_pat_..." required>
+        <small>Fica salvo só neste navegador. Nunca compartilhe esse token com ninguém.</small>
+      </div>
+      <button type="submit" class="btn-primario" id="btn-entrar">Entrar</button>
+    </form>
+
+    <details class="ajuda-token">
+      <summary>Não tenho um token — como eu crio um?</summary>
+      <ol>
+        <li>Acesse <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (é preciso estar logado no GitHub).</li>
+        <li>Em <b>Token name</b>, dê um nome como <code>Admin site Indefenza</code>.</li>
+        <li>Em <b>Expiration</b>, escolha um prazo (ex: 90 dias) — depois disso você cria um novo.</li>
+        <li>Em <b>Repository access</b>, marque <b>Only select repositories</b> e escolha <code>site-indefenza</code>.</li>
+        <li>Em <b>Permissions → Repository permissions</b>, ache <b>Contents</b> e mude para <b>Read and write</b>.</li>
+        <li>Clique em <b>Generate token</b> lá embaixo.</li>
+        <li>Copie o token gerado (começa com <code>github_pat_</code>) e cole no campo acima.</li>
+      </ol>
+    </details>
+  </div>
+</div>
+
+<!-- ===================== APP (PAINEL) ===================== -->
+<div class="app-shell" id="app" hidden>
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="../assets/img/logo-icone.svg" alt="Logo [IN]DEFENZA">
+      <span>[IN]<b>DEFENZA</b></span>
+    </div>
+    <ul class="menu-admin" id="menu-admin"></ul>
+    <div class="rodape-sidebar">
+      <b id="usuario-logado">—</b>
+      <button class="btn-secundario" id="btn-sair" style="width:100%">Sair</button>
+    </div>
+  </aside>
+  <main class="conteudo-principal" id="conteudo-principal"></main>
+</div>
+
+<!-- ===================== MODAL (formulário de item) ===================== -->
+<div class="modal-overlay" id="modal-overlay" hidden>
+  <div class="modal">
+    <button class="modal-fechar" id="modal-fechar" aria-label="Fechar">&times;</button>
+    <div id="modal-conteudo"></div>
+  </div>
+</div>
+
+<script src="../assets/js/github-cms.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

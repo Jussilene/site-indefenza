@@ -1,0 +1,22 @@
+[
+  {
+    "titulo": "Novo show sendo anunciado",
+    "local": "Local a confirmar — Curitiba, PR",
+    "dia": "--",
+    "mes": "Em breve",
+    "status": "proximo",
+    "tags": ["Turnê 2026", "Parasita da Galáxia"],
+    "link": "#",
+    "textoBotao": "Em Breve"
+  },
+  {
+    "titulo": "Show de Lançamento — \"O Parasita da Galáxia\"",
+    "local": "Janaíno Vegan — Curitiba, PR",
+    "dia": "05",
+    "mes": "Junho",
+    "status": "realizado",
+    "tags": ["Com Espectrovulho", "Com Look Into The Abyss", "Realizado"],
+    "link": "galeria.html",
+    "textoBotao": "Ver Fotos"
+  }
+]

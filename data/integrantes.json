@@ -1,0 +1,30 @@
+[
+  {
+    "nome": "Nome do Integrante",
+    "funcao": "Vocal",
+    "bio": "Voz e presença de palco do [IN]DEFENZA. Edite com uma breve bio: influências, tempo de banda e curiosidades.",
+    "foto": "",
+    "instagram": "#"
+  },
+  {
+    "nome": "Nome do Integrante",
+    "funcao": "Guitarra",
+    "bio": "Responsável pelos riffs pesados e solos da banda. Edite com uma breve bio deste integrante.",
+    "foto": "",
+    "instagram": "#"
+  },
+  {
+    "nome": "Nome do Integrante",
+    "funcao": "Baixo",
+    "bio": "A base pesada que sustenta o groove do [IN]DEFENZA. Edite com uma breve bio deste integrante.",
+    "foto": "",
+    "instagram": "#"
+  },
+  {
+    "nome": "Nome do Integrante",
+    "funcao": "Bateria",
+    "bio": "O motor por trás da energia e da agressividade da banda ao vivo. Edite com uma breve bio deste integrante.",
+    "foto": "",
+    "instagram": "#"
+  }
+]

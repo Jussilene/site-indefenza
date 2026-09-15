@@ -1,0 +1,34 @@
+[
+  {
+    "titulo": "Catastrófico",
+    "categoria": "Clipe Oficial",
+    "tipo": "youtube",
+    "youtubeId": "",
+    "arquivoUrl": "",
+    "destaque": true
+  },
+  {
+    "titulo": "Ao Vivo — Janaíno Vegan",
+    "categoria": "Show de Lançamento",
+    "tipo": "youtube",
+    "youtubeId": "",
+    "arquivoUrl": "",
+    "destaque": false
+  },
+  {
+    "titulo": "Título do Vídeo",
+    "categoria": "Videoclipe",
+    "tipo": "youtube",
+    "youtubeId": "",
+    "arquivoUrl": "",
+    "destaque": false
+  },
+  {
+    "titulo": "Bastidores das Gravações",
+    "categoria": "Making Of",
+    "tipo": "youtube",
+    "youtubeId": "",
+    "arquivoUrl": "",
+    "destaque": false
+  }
+]
