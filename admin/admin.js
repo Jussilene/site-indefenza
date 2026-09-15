@@ -1,4 +1,4 @@
-// [IN]DEFENZA — Painel Admin (CRUD via API do GitHub, sem servidor próprio)
+// [IN]DEFENZA — Painel Admin (CRUD via API própria, sem depender do GitHub)
 (() => {
   function esc(txt) {
     if (txt === undefined || txt === null) return '';
@@ -114,7 +114,8 @@
   const telaLogin = document.getElementById('tela-login');
   const app = document.getElementById('app');
   const formLogin = document.getElementById('form-login');
-  const campoToken = document.getElementById('campo-token');
+  const campoEmail = document.getElementById('campo-email');
+  const campoSenha = document.getElementById('campo-senha');
   const areaAlertaLogin = document.getElementById('area-alerta-login');
   const btnEntrar = document.getElementById('btn-entrar');
   const menuAdmin = document.getElementById('menu-admin');
@@ -145,21 +146,33 @@
   modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) fecharModal(); });
 
   /* ---------- Login ---------- */
-  async function tentarEntrarComToken(token, silencioso) {
-    GitHubCMS.setToken(token);
+  function entrarNoApp(usuario) {
+    usuarioLogado.textContent = usuario.nome || usuario.email;
+    telaLogin.hidden = true;
+    app.hidden = false;
+    montarMenu();
+    abrirSecao('textos');
+  }
+
+  async function tentarLogin(email, senha) {
     try {
-      const usuario = await GitHubCMS.validarAcesso();
-      usuarioLogado.textContent = `@${usuario.login}`;
-      telaLogin.hidden = true;
-      app.hidden = false;
-      montarMenu();
-      abrirSecao('textos');
+      const usuario = await ApiCliente.login(email, senha);
+      entrarNoApp(usuario);
       return true;
     } catch (e) {
-      GitHubCMS.limparToken();
-      if (!silencioso) {
-        areaAlertaLogin.innerHTML = `<div class="alerta-erro">Não foi possível entrar: ${esc(e.message)}. Confira se o token é válido e se tem acesso de "Contents: Read and write" ao repositório <code>${esc(GitHubCMS.REPO)}</code>.</div>`;
-      }
+      ApiCliente.limparToken();
+      areaAlertaLogin.innerHTML = `<div class="alerta-erro">Não foi possível entrar: ${esc(e.message)}</div>`;
+      return false;
+    }
+  }
+
+  async function tentarRetomarSessao() {
+    try {
+      const usuario = await ApiCliente.validarAcesso();
+      entrarNoApp(usuario);
+      return true;
+    } catch (e) {
+      ApiCliente.limparToken();
       return false;
     }
   }
@@ -169,23 +182,22 @@
     areaAlertaLogin.innerHTML = '';
     btnEntrar.disabled = true;
     btnEntrar.textContent = 'Entrando...';
-    const ok = await tentarEntrarComToken(campoToken.value.trim(), false);
+    const ok = await tentarLogin(campoEmail.value.trim(), campoSenha.value);
     btnEntrar.disabled = false;
     btnEntrar.textContent = 'Entrar';
-    if (ok) campoToken.value = '';
+    if (ok) { campoEmail.value = ''; campoSenha.value = ''; }
   });
 
   btnSair.addEventListener('click', () => {
-    GitHubCMS.limparToken();
+    ApiCliente.limparToken();
     app.hidden = true;
     telaLogin.hidden = false;
   });
 
   (async function iniciar() {
-    const tokenSalvo = GitHubCMS.getToken();
-    if (tokenSalvo) {
+    if (ApiCliente.getToken()) {
       telaLogin.querySelector('.login-card').style.opacity = '.5';
-      const ok = await tentarEntrarComToken(tokenSalvo, true);
+      const ok = await tentarRetomarSessao();
       if (!ok) telaLogin.querySelector('.login-card').style.opacity = '1';
     }
   })();
@@ -211,7 +223,7 @@
     const secao = SECOES[chave];
     conteudoPrincipal.innerHTML = `<p class="carregando"><i class="fa-solid fa-spinner fa-spin"></i> Carregando ${esc(secao.titulo)}...</p>`;
     try {
-      const { conteudo, sha } = await GitHubCMS.lerJson(secao.arquivo);
+      const { conteudo, sha } = await ApiCliente.lerJson(secao.arquivo);
       estadoSecoes[chave] = { dados: conteudo || (secao.tipo === 'unico' ? {} : []), sha };
       if (secao.tipo === 'unico') renderizarSecaoUnica(chave);
       else renderizarSecaoLista(chave);
@@ -277,7 +289,7 @@
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true; btn.textContent = 'Salvando...';
       try {
-        const resultado = await GitHubCMS.salvarJson(secao.arquivo, novosDados, estadoSecoes[chave].sha, `Atualiza textos do site via painel admin`);
+        const resultado = await ApiCliente.salvarJson(secao.arquivo, novosDados, estadoSecoes[chave].sha, `Atualiza textos do site via painel admin`);
         estadoSecoes[chave].dados = novosDados;
         estadoSecoes[chave].sha = resultado.content.sha;
         mostrarToast('Textos salvos com sucesso!');
@@ -367,8 +379,8 @@
             btnSalvar.textContent = 'Enviando arquivo...';
             const file = inputArquivo.files[0];
             const pasta = campo.tipo === 'imagem' ? 'assets/uploads/imagens' : 'assets/uploads/midia';
-            const caminho = `${pasta}/${GitHubCMS.nomeArquivoSeguro(file.name)}`;
-            const url = await GitHubCMS.enviarArquivo(caminho, file, `Envia arquivo (${file.name}) via painel admin`);
+            const caminho = `${pasta}/${ApiCliente.nomeArquivoSeguro(file.name)}`;
+            const url = await ApiCliente.enviarArquivo(caminho, file, `Envia arquivo (${file.name}) via painel admin`);
             dados[campo.chave] = url;
           }
         }
@@ -379,7 +391,7 @@
       if (indice === null) lista.push(dados);
       else lista[indice] = dados;
 
-      const resultado = await GitHubCMS.salvarJson(secao.arquivo, lista, estadoSecoes[chave].sha, `Atualiza ${secao.titulo} via painel admin`);
+      const resultado = await ApiCliente.salvarJson(secao.arquivo, lista, estadoSecoes[chave].sha, `Atualiza ${secao.titulo} via painel admin`);
       estadoSecoes[chave].dados = lista;
       estadoSecoes[chave].sha = resultado.content.sha;
       fecharModal();
@@ -401,7 +413,7 @@
     try {
       const lista = estadoSecoes[chave].dados.slice();
       lista.splice(indice, 1);
-      const resultado = await GitHubCMS.salvarJson(secao.arquivo, lista, estadoSecoes[chave].sha, `Remove item de ${secao.titulo} via painel admin`);
+      const resultado = await ApiCliente.salvarJson(secao.arquivo, lista, estadoSecoes[chave].sha, `Remove item de ${secao.titulo} via painel admin`);
       estadoSecoes[chave].dados = lista;
       estadoSecoes[chave].sha = resultado.content.sha;
       renderizarSecaoLista(chave);
@@ -418,7 +430,7 @@
     if (novoIndice < 0 || novoIndice >= lista.length) return;
     [lista[indice], lista[novoIndice]] = [lista[novoIndice], lista[indice]];
     try {
-      const resultado = await GitHubCMS.salvarJson(secao.arquivo, lista, estadoSecoes[chave].sha, `Reordena ${secao.titulo} via painel admin`);
+      const resultado = await ApiCliente.salvarJson(secao.arquivo, lista, estadoSecoes[chave].sha, `Reordena ${secao.titulo} via painel admin`);
       estadoSecoes[chave].dados = lista;
       estadoSecoes[chave].sha = resultado.content.sha;
       renderizarSecaoLista(chave);

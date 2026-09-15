@@ -1,2 +1,4 @@
 .portablegit/
 .claude/
+node_modules/
+server/usuarios.json

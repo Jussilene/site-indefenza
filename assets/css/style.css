@@ -222,10 +222,15 @@ p{ margin:0 0 1em; color:var(--cinza-claro); }
   justify-content:center;
   text-align:center;
   padding:140px 24px 80px;
-  background:
+  background-color:#08090a;
+  background-repeat:no-repeat;
+  background-position:center, center, center, center 68%;
+  background-size:auto, auto, auto, cover;
+  background-image:
     radial-gradient(ellipse at 50% 20%, rgba(107,224,74,.12), transparent 60%),
     radial-gradient(ellipse at 80% 80%, rgba(255,46,122,.15), transparent 55%),
-    linear-gradient(180deg,#0a0c0a 0%, #08090a 60%, #08090a 100%);
+    linear-gradient(180deg, rgba(8,9,10,.35) 0%, rgba(8,9,10,.6) 45%, rgba(8,9,10,.97) 100%),
+    url("../img/banda-foto.jpg");
   overflow:hidden;
 }
 .hero::before{

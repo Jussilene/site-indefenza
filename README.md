@@ -3,7 +3,9 @@
 Site estático (HTML/CSS/JS puro) no estilo hub do Iron Maiden Network, nas cores da banda (verde, rosa e preto).
 
 ## Como abrir
-Dê duplo clique em `index.html` para abrir no navegador. Não precisa de servidor nem instalação.
+
+- **Só para ver o site**: dê duplo clique em `index.html`. Não precisa de nada instalado.
+- **Para usar o Painel Admin**: o admin precisa do servidor rodando (veja [Painel Admin](#painel-admin-editar-o-site-sem-mexer-no-código) abaixo).
 
 ## Estrutura
 ```
@@ -35,37 +37,51 @@ Se preferir editar direto no código:
 ## Painel Admin (editar o site sem mexer no código)
 
 O site tem um painel em `/admin` que permite editar textos, integrantes, shows, galeria, vídeos, notícias e loja
-direto pelo navegador — inclusive enviar fotos, vídeos e áudios. Como o site é 100% estático (sem servidor próprio),
-o painel salva tudo direto no repositório do GitHub, que é quem hospeda o site; por isso o admin precisa de um
-**token de acesso do GitHub** para poder gravar as alterações.
+direto pelo navegador — inclusive enviar fotos, vídeos e áudios. O login é feito com **e-mail e senha próprios do
+site** (não depende de conta ou token do GitHub) — quem confere e-mail/senha é o servidor Node incluído no projeto
+(`server.js`).
 
-### Como acessar
-1. Publique o site (GitHub Pages, Netlify, etc.) ou rode localmente.
-2. Acesse `seusite.com/admin/` (ou `admin/index.html` localmente).
-3. Na primeira vez, clique em **"Não tenho um token — como eu crio um?"** e siga o passo a passo (gera um token
-   em `github.com/settings/personal-access-tokens/new`, com acesso **só** ao repositório `site-indefenza` e
-   permissão **Contents: Read and write**).
-4. Cole o token no campo e clique em **Entrar**.
+### Como rodar (primeira vez)
+1. Instale o [Node.js](https://nodejs.org) (18 ou mais novo) na máquina que vai rodar o servidor.
+2. Na pasta do projeto, rode uma vez: `npm install`
+3. Depois, sempre que quiser rodar o site com o admin ativo: `npm start` (ou `node server.js`)
+4. Acesse `http://localhost:5500` para o site e `http://localhost:5500/admin/` para o painel.
 
-O token fica salvo apenas no navegador de quem faz login (em `localStorage`) — nunca é enviado para nenhum
-lugar além da API oficial do GitHub. Trate esse token como uma senha: não envie print dele nem compartilhe o link
-do admin junto com o token na mesma mensagem. Ele expira sozinho na data escolhida na hora de criar.
+### Login de teste (localhost)
+Na primeira vez que o servidor roda, ele cria sozinho um administrador de teste:
+- **E-mail**: `adm@adm.com`
+- **Senha**: `123456`
+
+Isso fica salvo em `server/usuarios.json` (a senha nunca é salva em texto puro, só um hash) — esse arquivo **não
+é enviado para o GitHub** (está no `.gitignore`) porque é específico de cada instalação do servidor. Antes de usar
+o site "de verdade" (fora do seu computador), troque essa senha ou peça para eu criar um jeito de cadastrar um
+novo administrador com e-mail/senha reais.
 
 ### O que dá pra editar
 - **Textos do Site**: frase do topo, selos da home, os 3 parágrafos de "Sobre a banda", e-mail, WhatsApp e redes sociais.
 - **Integrantes, Shows, Galeria, Vídeos, Notícias e Loja**: adicionar, editar, reordenar (setas ▲▼) e excluir itens,
   com upload direto de fotos e, nos vídeos, upload de vídeo/áudio ou link do YouTube.
 
-Cada alteração salva vira um commit automático no repositório (em `data/*.json` e `assets/uploads/`), e a página
-pública já reflete a mudança na próxima visita (pode levar 1-2 minutos para o GitHub Pages atualizar o cache).
+Cada alteração salva grava direto nos arquivos `data/*.json` e nos uploads em `assets/uploads/` — a página pública
+já mostra a mudança assim que você atualiza (F5), sem precisar de deploy nem esperar nada.
+
+### Sobre o domínio `adm.indefenza.com`
+Isso é o próximo passo, quando o site for hospedado de verdade num domínio próprio. Diferente do restante do site
+(que é só HTML/CSS/JS estático e pode ir pra qualquer hospedagem, incluindo GitHub Pages), **o painel admin precisa
+de um servidor que rode Node.js** — GitHub Pages não roda esse tipo de servidor. Quando for a hora de colocar no ar,
+o `server.js` deste projeto vai rodar num serviço com suporte a Node (ex: um VPS, Railway, Render) e o
+`adm.indefenza.com` (ou `indefenza.com/admin`) vai apontar pra esse servidor.
 
 ### Arquivos por trás do painel
 ```
+server.js                → servidor Node/Express: login, API de dados e upload de arquivos
+server/usuarios.json     → e-mail/senha (com hash) dos administradores — não vai para o git
 data/*.json              → conteúdo editável (um arquivo por seção)
 assets/js/conteudo.js    → lê os data/*.json e preenche as páginas públicas (sem alterar o visual)
-assets/js/github-cms.js  → fala com a API do GitHub (ler/gravar arquivos, enviar imagens/vídeos)
+assets/js/api-client.js  → fala com a API própria do servidor (login, ler/gravar dados, enviar arquivos)
 admin/                   → o painel em si (login + telas de edição)
 ```
 
 ## Publicar o site
-Qualquer serviço de hospedagem estática funciona sem alterações: GitHub Pages, Netlify, Vercel ou Cloudflare Pages — basta enviar a pasta inteira (incluindo `data/` e `admin/`).
+- **As páginas públicas** (`index.html`, `sobre.html` etc.) são estáticas e funcionam em qualquer hospedagem: GitHub Pages, Netlify, Vercel, Cloudflare Pages.
+- **O Painel Admin** precisa que `server.js` esteja rodando em algum lugar com suporte a Node.js (não funciona em hospedagem só-estática como o GitHub Pages).

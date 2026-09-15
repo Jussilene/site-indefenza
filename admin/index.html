@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script>
+  // Garante a barra final na URL (ex.: /admin -> /admin/) antes de carregar
+  // qualquer outro arquivo, senão os caminhos relativos (admin.css, ../assets/...)
+  // resolvem para o lugar errado em alguns servidores (inclusive GitHub Pages).
+  if (!location.pathname.endsWith('/')) {
+    location.replace(location.pathname + '/' + location.search + location.hash);
+  }
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painel Admin — [IN]DEFENZA</title>
@@ -15,34 +23,34 @@
 <div class="tela-login" id="tela-login">
   <div class="login-card">
     <div class="logo">
-      <img src="../assets/img/logo-icone.svg" alt="Logo [IN]DEFENZA">
+      <img src="../assets/img/logo-icone.svg" alt="Logo [IN]DEFENZA" width="44" height="44">
       <span>[IN]<b>DEFENZA</b></span>
     </div>
     <h1>Painel Admin</h1>
-    <p class="sub">Entre com um token de acesso do GitHub para editar textos, shows, galeria, vídeos, notícias e a loja do site.</p>
+    <p class="sub">Entre com seu e-mail e senha de administrador para editar textos, shows, galeria, vídeos, notícias e a loja do site.</p>
 
     <div id="area-alerta-login"></div>
 
     <form id="form-login">
       <div class="campo">
-        <label for="campo-token">Token de acesso (GitHub)</label>
-        <input type="password" id="campo-token" autocomplete="off" placeholder="github_pat_..." required>
-        <small>Fica salvo só neste navegador. Nunca compartilhe esse token com ninguém.</small>
+        <label for="campo-email">E-mail</label>
+        <input type="email" id="campo-email" autocomplete="username" placeholder="adm@adm.com" required>
+      </div>
+      <div class="campo">
+        <label for="campo-senha">Senha</label>
+        <input type="password" id="campo-senha" autocomplete="current-password" placeholder="••••••••" required>
       </div>
       <button type="submit" class="btn-primario" id="btn-entrar">Entrar</button>
     </form>
 
     <details class="ajuda-token">
-      <summary>Não tenho um token — como eu crio um?</summary>
-      <ol>
-        <li>Acesse <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (é preciso estar logado no GitHub).</li>
-        <li>Em <b>Token name</b>, dê um nome como <code>Admin site Indefenza</code>.</li>
-        <li>Em <b>Expiration</b>, escolha um prazo (ex: 90 dias) — depois disso você cria um novo.</li>
-        <li>Em <b>Repository access</b>, marque <b>Only select repositories</b> e escolha <code>site-indefenza</code>.</li>
-        <li>Em <b>Permissions → Repository permissions</b>, ache <b>Contents</b> e mude para <b>Read and write</b>.</li>
-        <li>Clique em <b>Generate token</b> lá embaixo.</li>
-        <li>Copie o token gerado (começa com <code>github_pat_</code>) e cole no campo acima.</li>
-      </ol>
+      <summary>Acesso de teste (localhost)</summary>
+      <p style="margin:14px 0 0;color:var(--cinza-claro);font-size:14px;">
+        Enquanto o site roda localmente, use o login de teste criado automaticamente pelo servidor:<br>
+        E-mail: <code>adm@adm.com</code> &nbsp; Senha: <code>123456</code><br><br>
+        Esse usuário fica salvo em <code>server/usuarios.json</code> (fora do site publicado). Antes de colocar o site
+        no ar de verdade, troque essa senha ou peça para criar um novo administrador.
+      </p>
     </details>
   </div>
 </div>
@@ -51,7 +59,7 @@
 <div class="app-shell" id="app" hidden>
   <aside class="sidebar">
     <div class="logo">
-      <img src="../assets/img/logo-icone.svg" alt="Logo [IN]DEFENZA">
+      <img src="../assets/img/logo-icone.svg" alt="Logo [IN]DEFENZA" width="36" height="36">
       <span>[IN]<b>DEFENZA</b></span>
     </div>
     <ul class="menu-admin" id="menu-admin"></ul>
@@ -71,7 +79,7 @@
   </div>
 </div>
 
-<script src="../assets/js/github-cms.js"></script>
+<script src="../assets/js/api-client.js"></script>
 <script src="admin.js"></script>
 </body>
 </html>
