@@ -119,7 +119,7 @@ app.post('/api/upload', exigirLogin, upload.single('arquivo'), (req, res) => {
     const destino = path.join(RAIZ, caminho);
     fs.mkdirSync(path.dirname(destino), { recursive: true });
     fs.writeFileSync(destino, req.file.buffer);
-    res.json({ url: '/' + caminho });
+    res.json({ url: caminho });
   } catch (erro) {
     res.status(500).json({ mensagem: 'Erro ao salvar arquivo: ' + erro.message });
   }
