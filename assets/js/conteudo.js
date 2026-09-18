@@ -53,8 +53,12 @@
       el.href = `https://wa.me/${site.contatoWhatsapp}${texto ? '?text=' + encodeURIComponent(texto) : ''}`;
     });
     document.querySelectorAll('[data-campo="instagram"]').forEach(el => { if (site.instagram) el.href = site.instagram; });
+    document.querySelectorAll('[data-campo="facebook"]').forEach(el => { if (site.facebook) el.href = site.facebook; });
+    document.querySelectorAll('[data-campo="tiktok"]').forEach(el => { if (site.tiktok) el.href = site.tiktok; });
+    document.querySelectorAll('[data-campo="twitter"]').forEach(el => { if (site.twitter) el.href = site.twitter; });
     document.querySelectorAll('[data-campo="youtube"]').forEach(el => { if (site.youtube) el.href = site.youtube; });
     document.querySelectorAll('[data-campo="spotify"]').forEach(el => { if (site.spotify) el.href = site.spotify; });
+    document.querySelectorAll('[data-campo="applemusic"]').forEach(el => { if (site.applemusic) el.href = site.applemusic; });
     document.querySelectorAll('[data-campo="threads"]').forEach(el => { if (site.threads) el.href = site.threads; });
   }
 

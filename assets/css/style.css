@@ -166,25 +166,38 @@ p{ margin:0 0 1em; color:var(--cinza-claro); }
 .nav-principal a:hover::after,
 .nav-principal a.ativo::after{ width:100%; }
 
-.nav-social{
+/* Faixa de redes sociais, estilo "Iron Maiden Network" — na paleta verde/rosa do site (sem vermelho) */
+.social-bar{
+  position:relative;
   display:flex;
-  gap:16px;
   align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  padding:8px 24px;
+  background:var(--preto-2);
 }
-.nav-social a{
-  width:34px; height:34px;
+.social-bar::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--verde-neon),var(--rosa));
+}
+.social-bar a{
+  width:30px; height:30px;
   border:1px solid var(--cinza);
   border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  font-size:15px;
+  font-size:13px;
   color:var(--cinza-claro);
   transition:all .25s ease;
 }
-.nav-social a:hover{
-  border-color:var(--verde-neon);
+.social-bar a:hover{
+  border-color:var(--rosa);
   color:var(--preto);
-  background:var(--verde-neon);
+  background:var(--rosa);
   transform:translateY(-2px) rotate(-4deg);
+  box-shadow:0 0 12px rgba(255,46,122,.55);
 }
 
 .menu-toggle{
@@ -214,7 +227,7 @@ p{ margin:0 0 1em; color:var(--cinza-claro); }
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:140px 24px 80px;
+  padding:185px 24px 80px;
   background-color:#08090a;
   background-repeat:no-repeat;
   background-position:center, center, center, center;
@@ -428,7 +441,7 @@ p{ margin:0 0 1em; color:var(--cinza-claro); }
 
 /* ===================== SEÇÃO PADRÃO PÁGINAS INTERNAS ===================== */
 .pagina-topo{
-  padding:150px 0 60px;
+  padding:195px 0 60px;
   text-align:center;
   position:relative;
   background:
@@ -866,7 +879,6 @@ section{ padding:80px 0; }
     border-left:1px solid var(--verde-esc);
   }
   .nav-principal.aberto{ transform:translateX(0); }
-  .nav-social{ display:none; }
   .menu-toggle{ display:flex; }
   .hub-grid{ grid-template-columns:1fr 1fr; }
   .integrantes-grid{ grid-template-columns:1fr 1fr; }
@@ -876,6 +888,10 @@ section{ padding:80px 0; }
   .show-acao{ grid-column:1/3; }
   .footer-grid{ grid-template-columns:1fr; }
   .produto-grid{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:480px){
+  .social-bar{ gap:8px; padding:8px 14px; }
+  .social-bar a{ width:26px; height:26px; font-size:11px; }
 }
 
 /* ===================== LOJA ===================== */

@@ -23,8 +23,12 @@
         { chave: 'contatoEmail', label: 'E-mail de contato', tipo: 'texto' },
         { chave: 'contatoWhatsapp', label: 'WhatsApp (só números, com DDI e DDD — ex: 5541999999999)', tipo: 'texto' },
         { chave: 'instagram', label: 'Link do Instagram', tipo: 'texto' },
+        { chave: 'facebook', label: 'Link do Facebook', tipo: 'texto' },
+        { chave: 'tiktok', label: 'Link do TikTok', tipo: 'texto' },
+        { chave: 'twitter', label: 'Link do X (Twitter)', tipo: 'texto' },
         { chave: 'youtube', label: 'Link do YouTube', tipo: 'texto' },
         { chave: 'spotify', label: 'Link do Spotify', tipo: 'texto' },
+        { chave: 'applemusic', label: 'Link do Apple Music', tipo: 'texto' },
         { chave: 'threads', label: 'Link do Threads', tipo: 'texto' }
       ]
     },
