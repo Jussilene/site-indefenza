@@ -8,6 +8,15 @@
   }
   function attr(txt) { return esc(txt).replace(/"/g, '&quot;'); }
 
+  // Os caminhos salvos no JSON (ex.: "assets/uploads/imagens/foto.jpg") são relativos
+  // à raiz do site. Como o painel roda em /admin/, precisam ganhar "../" na frente
+  // para apontar pro lugar certo aqui dentro — senão o navegador procura em /admin/assets/...
+  function caminhoMidia(caminho) {
+    if (!caminho) return '';
+    if (/^([a-z]+:)?\/\//i.test(caminho) || caminho.startsWith('/') || caminho.startsWith('data:')) return caminho;
+    return `../${caminho}`;
+  }
+
   /* ---------- Definição de todas as seções editáveis ---------- */
   const SECOES = {
     textos: {
@@ -255,7 +264,7 @@
     }
     if (campo.tipo === 'imagem' || campo.tipo === 'arquivo-midia') {
       const accept = campo.tipo === 'imagem' ? 'image/*' : 'video/*,audio/*';
-      const preview = campo.tipo === 'imagem' && valor ? `<img src="${attr(valor)}" class="preview-imagem">` : '';
+      const preview = campo.tipo === 'imagem' && valor ? `<img src="${attr(caminhoMidia(valor))}" class="preview-imagem">` : '';
       return `<div class="campo">
         <label>${esc(campo.label)}</label>
         <div class="linha-upload">
@@ -329,7 +338,7 @@
     const icone = secao.iconeItem ? secao.iconeItem(item) : 'fa-circle';
     return `
       <div class="item-card">
-        <div class="miniatura">${imagem ? `<img src="${attr(imagem)}">` : `<i class="fa-solid ${esc(icone)}"></i>`}</div>
+        <div class="miniatura">${imagem ? `<img src="${attr(caminhoMidia(imagem))}">` : `<i class="fa-solid ${esc(icone)}"></i>`}</div>
         <div class="info-item">
           <h4>${esc(secao.tituloItem(item))}</h4>
           <span>${esc(secao.subtituloItem ? secao.subtituloItem(item) : '')}</span>
